@@ -19,7 +19,11 @@ public class Payment {
 
     private Date signedDate;
 
-    public Payment(Integer uuid, String name, Integer package, Integer contractStatus, Integer paymentStatus, Integer discount, Integer paidAmout, Date signedDate) {
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Payment(Integer uuid, String name, Integer package, Integer contractStatus, Integer paymentStatus, Integer discount, Integer paidAmout, Date signedDate, Date createTime, Date updateTime) {
         this.uuid = uuid;
         this.name = name;
         this.package = package;
@@ -28,6 +32,8 @@ public class Payment {
         this.discount = discount;
         this.paidAmout = paidAmout;
         this.signedDate = signedDate;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public Payment() {
@@ -96,5 +102,21 @@ public class Payment {
 
     public void setSignedDate(Date signedDate) {
         this.signedDate = signedDate;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

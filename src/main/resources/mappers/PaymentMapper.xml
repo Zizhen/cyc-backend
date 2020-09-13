@@ -1,32 +1,183 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cyc.dao.PaymentMapper" >
-  <resultMap id="BaseResultMap" type="com.cyc.pojo.Payment" >
-    <constructor >
-      <idArg column="uuid" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="package" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="contract_status" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="payment_status" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="discount" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="paid_amout" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="signed_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyc.dao.PaymentMapper">
+  <resultMap id="BaseResultMap" type="com.cyc.pojo.Payment">
+    <constructor>
+      <idArg column="uuid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="package" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="contract_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="payment_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="discount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="paid_amout" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="signed_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
-    uuid, name, package, contract_status, payment_status, discount, paid_amout, signed_date
+  <sql id="Base_Column_List">
+    uuid, name, package, contract_status, payment_status, discount, paid_amout, signed_date, 
+    create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from payment
     where uuid = #{uuid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from payment
     where uuid = #{uuid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.cyc.pojo.Payment" >
+  <insert id="insert" parameterType="com.cyc.pojo.Payment">
+    insert into payment (uuid, name, package, 
+      contract_status, payment_status, discount, 
+      paid_amout, signed_date, create_time, 
+      update_time)
+    values (#{uuid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{package,jdbcType=INTEGER}, 
+      #{contractStatus,jdbcType=INTEGER}, #{paymentStatus,jdbcType=INTEGER}, #{discount,jdbcType=INTEGER}, 
+      #{paidAmout,jdbcType=INTEGER}, #{signedDate,jdbcType=TIMESTAMP}, now(),
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyc.pojo.Payment">
+    insert into payment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="package != null">
+        package,
+      </if>
+      <if test="contractStatus != null">
+        contract_status,
+      </if>
+      <if test="paymentStatus != null">
+        payment_status,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="paidAmout != null">
+        paid_amout,
+      </if>
+      <if test="signedDate != null">
+        signed_date,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="package != null">
+        #{package,jdbcType=INTEGER},
+      </if>
+      <if test="contractStatus != null">
+        #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymentStatus != null">
+        #{paymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="paidAmout != null">
+        #{paidAmout,jdbcType=INTEGER},
+      </if>
+      <if test="signedDate != null">
+        #{signedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyc.pojo.Payment">
+    update payment
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="package != null">
+        package = #{package,jdbcType=INTEGER},
+      </if>
+      <if test="contractStatus != null">
+        contract_status = #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymentStatus != null">
+        payment_status = #{paymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="paidAmout != null">
+        paid_amout = #{paidAmout,jdbcType=INTEGER},
+      </if>
+      <if test="signedDate != null">
+        signed_date = #{signedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyc.pojo.Payment">
+    update payment
+    set name = #{name,jdbcType=VARCHAR},
+      package = #{package,jdbcType=INTEGER},
+      contract_status = #{contractStatus,jdbcType=INTEGER},
+      payment_status = #{paymentStatus,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=INTEGER},
+      paid_amout = #{paidAmout,jdbcType=INTEGER},
+      signed_date = #{signedDate,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.cyc.pojo.Payment">
+    <constructor>
+      <idArg column="uuid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="package" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="contract_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="payment_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="discount" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="paid_amout" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="signed_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, name, package, contract_status, payment_status, discount, paid_amout, signed_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from payment
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from payment
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cyc.pojo.Payment">
     insert into payment (uuid, name, package, 
       contract_status, payment_status, discount, 
       paid_amout, signed_date)
@@ -34,89 +185,89 @@
       #{contractStatus,jdbcType=INTEGER}, #{paymentStatus,jdbcType=INTEGER}, #{discount,jdbcType=INTEGER}, 
       #{paidAmout,jdbcType=INTEGER}, #{signedDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cyc.pojo.Payment" >
+  <insert id="insertSelective" parameterType="com.cyc.pojo.Payment">
     insert into payment
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="uuid != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
         uuid,
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name,
       </if>
-      <if test="package != null" >
+      <if test="package != null">
         package,
       </if>
-      <if test="contractStatus != null" >
+      <if test="contractStatus != null">
         contract_status,
       </if>
-      <if test="paymentStatus != null" >
+      <if test="paymentStatus != null">
         payment_status,
       </if>
-      <if test="discount != null" >
+      <if test="discount != null">
         discount,
       </if>
-      <if test="paidAmout != null" >
+      <if test="paidAmout != null">
         paid_amout,
       </if>
-      <if test="signedDate != null" >
+      <if test="signedDate != null">
         signed_date,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="uuid != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
         #{uuid,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="package != null" >
+      <if test="package != null">
         #{package,jdbcType=INTEGER},
       </if>
-      <if test="contractStatus != null" >
+      <if test="contractStatus != null">
         #{contractStatus,jdbcType=INTEGER},
       </if>
-      <if test="paymentStatus != null" >
+      <if test="paymentStatus != null">
         #{paymentStatus,jdbcType=INTEGER},
       </if>
-      <if test="discount != null" >
+      <if test="discount != null">
         #{discount,jdbcType=INTEGER},
       </if>
-      <if test="paidAmout != null" >
+      <if test="paidAmout != null">
         #{paidAmout,jdbcType=INTEGER},
       </if>
-      <if test="signedDate != null" >
+      <if test="signedDate != null">
         #{signedDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cyc.pojo.Payment" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyc.pojo.Payment">
     update payment
-    <set >
-      <if test="name != null" >
+    <set>
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="package != null" >
+      <if test="package != null">
         package = #{package,jdbcType=INTEGER},
       </if>
-      <if test="contractStatus != null" >
+      <if test="contractStatus != null">
         contract_status = #{contractStatus,jdbcType=INTEGER},
       </if>
-      <if test="paymentStatus != null" >
+      <if test="paymentStatus != null">
         payment_status = #{paymentStatus,jdbcType=INTEGER},
       </if>
-      <if test="discount != null" >
+      <if test="discount != null">
         discount = #{discount,jdbcType=INTEGER},
       </if>
-      <if test="paidAmout != null" >
+      <if test="paidAmout != null">
         paid_amout = #{paidAmout,jdbcType=INTEGER},
       </if>
-      <if test="signedDate != null" >
+      <if test="signedDate != null">
         signed_date = #{signedDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where uuid = #{uuid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cyc.pojo.Payment" >
+  <update id="updateByPrimaryKey" parameterType="com.cyc.pojo.Payment">
     update payment
     set name = #{name,jdbcType=VARCHAR},
       package = #{package,jdbcType=INTEGER},

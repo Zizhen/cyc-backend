@@ -1,5 +1,7 @@
 package com.cyc.pojo;
 
+import java.util.Date;
+
 public class Personal {
     private Integer uuid;
 
@@ -21,7 +23,11 @@ public class Personal {
 
     private Integer visa;
 
-    public Personal(Integer uuid, String studentName, String email, String wechatId, String consultantName, String school, String major1, String major2, String minor, Integer visa) {
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Personal(Integer uuid, String studentName, String email, String wechatId, String consultantName, String school, String major1, String major2, String minor, Integer visa, Date createTime, Date updateTime) {
         this.uuid = uuid;
         this.studentName = studentName;
         this.email = email;
@@ -32,6 +38,8 @@ public class Personal {
         this.major2 = major2;
         this.minor = minor;
         this.visa = visa;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public Personal() {
@@ -116,5 +124,21 @@ public class Personal {
 
     public void setVisa(Integer visa) {
         this.visa = visa;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

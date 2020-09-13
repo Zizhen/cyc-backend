@@ -1,5 +1,7 @@
 package com.cyc.pojo;
 
+import java.util.Date;
+
 public class Employment {
     private Integer uuid;
 
@@ -11,12 +13,18 @@ public class Employment {
 
     private String position;
 
-    public Employment(Integer uuid, String name, Integer reason, String currentEmployer, String position) {
+    private Date createTime;
+
+    private Date updateTime;
+
+    public Employment(Integer uuid, String name, Integer reason, String currentEmployer, String position, Date createTime, Date updateTime) {
         this.uuid = uuid;
         this.name = name;
         this.reason = reason;
         this.currentEmployer = currentEmployer;
         this.position = position;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public Employment() {
@@ -61,5 +69,21 @@ public class Employment {
 
     public void setPosition(String position) {
         this.position = position == null ? null : position.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
