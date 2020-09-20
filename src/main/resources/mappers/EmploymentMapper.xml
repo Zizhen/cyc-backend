@@ -1,210 +1,119 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cyc.dao.EmploymentMapper">
-  <resultMap id="BaseResultMap" type="com.cyc.pojo.Employment">
-    <constructor>
-      <idArg column="uuid" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="reason" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="current_employer" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="position" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyc.dao.EmploymentMapper" >
+  <resultMap id="BaseResultMap" type="com.cyc.pojo.Employment" >
+    <constructor >
+      <idArg column="wechat_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="reason" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="current_employer" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="position" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List">
-    uuid, name, reason, current_employer, position, create_time, update_time
+  <sql id="Base_Column_List" >
+    wechat_id, name, reason, current_employer, position, create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from employment
-    where uuid = #{uuid,jdbcType=INTEGER}
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from employment
-    where uuid = #{uuid,jdbcType=INTEGER}
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.cyc.pojo.Employment">
-    insert into employment (uuid, name, reason, 
+  <insert id="insert" parameterType="com.cyc.pojo.Employment" >
+    insert into employment (wechat_id, name, reason, 
       current_employer, position, create_time, 
       update_time)
-    values (#{uuid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{reason,jdbcType=INTEGER}, 
-      #{currentEmployer,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, now(),
-      now())
+    values (#{wechatId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{reason,jdbcType=INTEGER}, 
+      #{currentEmployer,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cyc.pojo.Employment">
+  <insert id="insertSelective" parameterType="com.cyc.pojo.Employment" >
     insert into employment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        uuid,
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wechatId != null" >
+        wechat_id,
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         name,
       </if>
-      <if test="reason != null">
+      <if test="reason != null" >
         reason,
       </if>
-      <if test="currentEmployer != null">
+      <if test="currentEmployer != null" >
         current_employer,
       </if>
-      <if test="position != null">
+      <if test="position != null" >
         position,
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time,
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime != null" >
         update_time,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        #{uuid,jdbcType=INTEGER},
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wechatId != null" >
+        #{wechatId,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
+      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="reason != null">
+      <if test="reason != null" >
         #{reason,jdbcType=INTEGER},
       </if>
-      <if test="currentEmployer != null">
+      <if test="currentEmployer != null" >
         #{currentEmployer,jdbcType=VARCHAR},
       </if>
-      <if test="position != null">
+      <if test="position != null" >
         #{position,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        now(),
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        now(),
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cyc.pojo.Employment">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyc.pojo.Employment" >
     update employment
-    <set>
-      <if test="name != null">
+    <set >
+      <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="reason != null">
+      <if test="reason != null" >
         reason = #{reason,jdbcType=INTEGER},
       </if>
-      <if test="currentEmployer != null">
+      <if test="currentEmployer != null" >
         current_employer = #{currentEmployer,jdbcType=VARCHAR},
       </if>
-      <if test="position != null">
+      <if test="position != null" >
         position = #{position,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
+      <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null">
-        update_time = now(),
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where uuid = #{uuid,jdbcType=INTEGER}
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cyc.pojo.Employment">
+  <update id="updateByPrimaryKey" parameterType="com.cyc.pojo.Employment" >
     update employment
     set name = #{name,jdbcType=VARCHAR},
       reason = #{reason,jdbcType=INTEGER},
       current_employer = #{currentEmployer,jdbcType=VARCHAR},
       position = #{position,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = now()
-    where uuid = #{uuid,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.cyc.pojo.Employment">
-    <constructor>
-      <idArg column="uuid" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="reason" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="current_employer" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="position" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
-    uuid, name, reason, current_employer, position
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from employment
-    where uuid = #{uuid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from employment
-    where uuid = #{uuid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.cyc.pojo.Employment">
-    insert into employment (uuid, name, reason, 
-      current_employer, position)
-    values (#{uuid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{reason,jdbcType=INTEGER}, 
-      #{currentEmployer,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.cyc.pojo.Employment">
-    insert into employment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        uuid,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="reason != null">
-        reason,
-      </if>
-      <if test="currentEmployer != null">
-        current_employer,
-      </if>
-      <if test="position != null">
-        position,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uuid != null">
-        #{uuid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="reason != null">
-        #{reason,jdbcType=INTEGER},
-      </if>
-      <if test="currentEmployer != null">
-        #{currentEmployer,jdbcType=VARCHAR},
-      </if>
-      <if test="position != null">
-        #{position,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cyc.pojo.Employment">
-    update employment
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="reason != null">
-        reason = #{reason,jdbcType=INTEGER},
-      </if>
-      <if test="currentEmployer != null">
-        current_employer = #{currentEmployer,jdbcType=VARCHAR},
-      </if>
-      <if test="position != null">
-        position = #{position,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where uuid = #{uuid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cyc.pojo.Employment">
-    update employment
-    set name = #{name,jdbcType=VARCHAR},
-      reason = #{reason,jdbcType=INTEGER},
-      current_employer = #{currentEmployer,jdbcType=VARCHAR},
-      position = #{position,jdbcType=VARCHAR}
-    where uuid = #{uuid,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
   </update>
 </mapper>

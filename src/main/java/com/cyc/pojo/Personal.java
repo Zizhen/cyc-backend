@@ -3,13 +3,11 @@ package com.cyc.pojo;
 import java.util.Date;
 
 public class Personal {
-    private Integer uuid;
+    private String wechatId;
 
     private String studentName;
 
-    private String email;
-
-    private String wechatId;
+    private String gender;
 
     private String consultantName;
 
@@ -27,11 +25,10 @@ public class Personal {
 
     private Date updateTime;
 
-    public Personal(Integer uuid, String studentName, String email, String wechatId, String consultantName, String school, String major1, String major2, String minor, Integer visa, Date createTime, Date updateTime) {
-        this.uuid = uuid;
-        this.studentName = studentName;
-        this.email = email;
+    public Personal(String wechatId, String studentName, String gender, String consultantName, String school, String major1, String major2, String minor, Integer visa, Date createTime, Date updateTime) {
         this.wechatId = wechatId;
+        this.studentName = studentName;
+        this.gender = gender;
         this.consultantName = consultantName;
         this.school = school;
         this.major1 = major1;
@@ -46,12 +43,12 @@ public class Personal {
         super();
     }
 
-    public Integer getUuid() {
-        return uuid;
+    public String getWechatId() {
+        return wechatId;
     }
 
-    public void setUuid(Integer uuid) {
-        this.uuid = uuid;
+    public void setWechatId(String wechatId) {
+        this.wechatId = wechatId == null ? null : wechatId.trim();
     }
 
     public String getStudentName() {
@@ -62,20 +59,12 @@ public class Personal {
         this.studentName = studentName == null ? null : studentName.trim();
     }
 
-    public String getEmail() {
-        return email;
+    public String getGender() {
+        return gender;
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public String getWechatId() {
-        return wechatId;
-    }
-
-    public void setWechatId(String wechatId) {
-        this.wechatId = wechatId == null ? null : wechatId.trim();
+    public void setGender(String gender) {
+        this.gender = gender == null ? null : gender.trim();
     }
 
     public String getConsultantName() {

@@ -3,13 +3,13 @@ package com.cyc.dao;
 import com.cyc.pojo.Employment;
 
 public interface EmploymentMapper {
-    int deleteByPrimaryKey(Integer uuid);
+    int deleteByPrimaryKey(String wechatId);
 
     int insert(Employment record);
 
     int insertSelective(Employment record);
 
-    Employment selectByPrimaryKey(Integer uuid);
+    Employment selectByPrimaryKey(String wechatId);
 
     int updateByPrimaryKeySelective(Employment record);
 

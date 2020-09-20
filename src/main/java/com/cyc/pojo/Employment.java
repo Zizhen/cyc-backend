@@ -3,7 +3,7 @@ package com.cyc.pojo;
 import java.util.Date;
 
 public class Employment {
-    private Integer uuid;
+    private String wechatId;
 
     private String name;
 
@@ -17,8 +17,8 @@ public class Employment {
 
     private Date updateTime;
 
-    public Employment(Integer uuid, String name, Integer reason, String currentEmployer, String position, Date createTime, Date updateTime) {
-        this.uuid = uuid;
+    public Employment(String wechatId, String name, Integer reason, String currentEmployer, String position, Date createTime, Date updateTime) {
+        this.wechatId = wechatId;
         this.name = name;
         this.reason = reason;
         this.currentEmployer = currentEmployer;
@@ -31,12 +31,12 @@ public class Employment {
         super();
     }
 
-    public Integer getUuid() {
-        return uuid;
+    public String getWechatId() {
+        return wechatId;
     }
 
-    public void setUuid(Integer uuid) {
-        this.uuid = uuid;
+    public void setWechatId(String wechatId) {
+        this.wechatId = wechatId == null ? null : wechatId.trim();
     }
 
     public String getName() {

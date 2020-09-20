@@ -3,7 +3,7 @@ package com.cyc.pojo;
 import java.util.Date;
 
 public class Payment {
-    private Integer uuid;
+    private String wechatId;
 
     private String name;
 
@@ -23,8 +23,8 @@ public class Payment {
 
     private Date updateTime;
 
-    public Payment(Integer uuid, String name, Integer package, Integer contractStatus, Integer paymentStatus, Integer discount, Integer paidAmout, Date signedDate, Date createTime, Date updateTime) {
-        this.uuid = uuid;
+    public Payment(String wechatId, String name, Integer package, Integer contractStatus, Integer paymentStatus, Integer discount, Integer paidAmout, Date signedDate, Date createTime, Date updateTime) {
+        this.wechatId = wechatId;
         this.name = name;
         this.package = package;
         this.contractStatus = contractStatus;
@@ -40,12 +40,12 @@ public class Payment {
         super();
     }
 
-    public Integer getUuid() {
-        return uuid;
+    public String getWechatId() {
+        return wechatId;
     }
 
-    public void setUuid(Integer uuid) {
-        this.uuid = uuid;
+    public void setWechatId(String wechatId) {
+        this.wechatId = wechatId == null ? null : wechatId.trim();
     }
 
     public String getName() {
