@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyc.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.cyc.pojo.Student" >
+    <constructor >
+      <idArg column="wechat_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="student_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gender" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="consultant_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="school" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="major1" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="major2" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="minor" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="package_name" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="contract_status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="payment_status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="discount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="paid_amount" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="signed_date" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="reason" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="current_employer" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job_position" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    wechat_id, student_name, gender, consultant_name, school, major1, major2, minor, 
+    package_name, contract_status, payment_status, discount, paid_amount, signed_date, 
+    reason, current_employer, job_position, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from student
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cyc.pojo.Student" >
+    insert into student (wechat_id, student_name, gender, 
+      consultant_name, school, major1, 
+      major2, minor, package_name, 
+      contract_status, payment_status, discount, 
+      paid_amount, signed_date, reason, 
+      current_employer, job_position, create_time, 
+      update_time)
+    values (#{wechatId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{consultantName,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{major1,jdbcType=VARCHAR}, 
+      #{major2,jdbcType=VARCHAR}, #{minor,jdbcType=VARCHAR}, #{packageName,jdbcType=INTEGER}, 
+      #{contractStatus,jdbcType=INTEGER}, #{paymentStatus,jdbcType=INTEGER}, #{discount,jdbcType=INTEGER}, 
+      #{paidAmount,jdbcType=INTEGER}, #{signedDate,jdbcType=TIMESTAMP}, #{reason,jdbcType=INTEGER}, 
+      #{currentEmployer,jdbcType=VARCHAR}, #{jobPosition,jdbcType=VARCHAR}, now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyc.pojo.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wechatId != null" >
+        wechat_id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="consultantName != null" >
+        consultant_name,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="major1 != null" >
+        major1,
+      </if>
+      <if test="major2 != null" >
+        major2,
+      </if>
+      <if test="minor != null" >
+        minor,
+      </if>
+      <if test="packageName != null" >
+        package_name,
+      </if>
+      <if test="contractStatus != null" >
+        contract_status,
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount,
+      </if>
+      <if test="signedDate != null" >
+        signed_date,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="currentEmployer != null" >
+        current_employer,
+      </if>
+      <if test="jobPosition != null" >
+        job_position,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wechatId != null" >
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="consultantName != null" >
+        #{consultantName,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major1 != null" >
+        #{major1,jdbcType=VARCHAR},
+      </if>
+      <if test="major2 != null" >
+        #{major2,jdbcType=VARCHAR},
+      </if>
+      <if test="minor != null" >
+        #{minor,jdbcType=VARCHAR},
+      </if>
+      <if test="packageName != null" >
+        #{packageName,jdbcType=INTEGER},
+      </if>
+      <if test="contractStatus != null" >
+        #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymentStatus != null" >
+        #{paymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="paidAmount != null" >
+        #{paidAmount,jdbcType=INTEGER},
+      </if>
+      <if test="signedDate != null" >
+        #{signedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=INTEGER},
+      </if>
+      <if test="currentEmployer != null" >
+        #{currentEmployer,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPosition != null" >
+        #{jobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        now(),
+      </if>
+      <if test="updateTime != null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyc.pojo.Student" >
+    update student
+    <set >
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="consultantName != null" >
+        consultant_name = #{consultantName,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="major1 != null" >
+        major1 = #{major1,jdbcType=VARCHAR},
+      </if>
+      <if test="major2 != null" >
+        major2 = #{major2,jdbcType=VARCHAR},
+      </if>
+      <if test="minor != null" >
+        minor = #{minor,jdbcType=VARCHAR},
+      </if>
+      <if test="packageName != null" >
+        package_name = #{packageName,jdbcType=INTEGER},
+      </if>
+      <if test="contractStatus != null" >
+        contract_status = #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status = #{paymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount = #{paidAmount,jdbcType=INTEGER},
+      </if>
+      <if test="signedDate != null" >
+        signed_date = #{signedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=INTEGER},
+      </if>
+      <if test="currentEmployer != null" >
+        current_employer = #{currentEmployer,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPosition != null" >
+        job_position = #{jobPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+    </set>
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyc.pojo.Student" >
+    update student
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      consultant_name = #{consultantName,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      major1 = #{major1,jdbcType=VARCHAR},
+      major2 = #{major2,jdbcType=VARCHAR},
+      minor = #{minor,jdbcType=VARCHAR},
+      package_name = #{packageName,jdbcType=INTEGER},
+      contract_status = #{contractStatus,jdbcType=INTEGER},
+      payment_status = #{paymentStatus,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=INTEGER},
+      paid_amount = #{paidAmount,jdbcType=INTEGER},
+      signed_date = #{signedDate,jdbcType=TIMESTAMP},
+      reason = #{reason,jdbcType=INTEGER},
+      current_employer = #{currentEmployer,jdbcType=VARCHAR},
+      job_position = #{jobPosition,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where wechat_id = #{wechatId,jdbcType=VARCHAR}
+  </update>
+  <select id="checkExists" parameterType="string" resultType="int">
+    select count(1) from student where wechat_id = #{wechatId}
+  </select>
+</mapper>
