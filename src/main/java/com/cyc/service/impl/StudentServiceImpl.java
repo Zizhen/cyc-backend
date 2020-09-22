@@ -13,6 +13,19 @@ public class StudentServiceImpl implements IStudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    public ServerResponse<Student> getStudentInfo(String wechatId){
+        if (StringUtils.isBlank(wechatId)){
+            return ServerResponse.createByErrorMessage("Need to pass in wechatId");
+        }
+        ServerResponse existResponse = this.checkExists(wechatId);
+        // student info doesn't exist in db
+        if(!existResponse.isSuccess()){
+            return existResponse;
+        }
+        Student entry = studentMapper.selectByPrimaryKey(wechatId);
+        return ServerResponse.createBySuccess("student info found", entry);
+    }
+
     public ServerResponse<String> setStudentInfo(Student record){
         String wechatId = record.getWechatId();
         if (StringUtils.isBlank(wechatId)){
@@ -42,10 +55,10 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     public ServerResponse<String> deleteStudentInfo(String wechatId){
-        ServerResponse existResponse = this.checkExists(wechatId);
         if (StringUtils.isBlank(wechatId)){
             return ServerResponse.createByErrorMessage("Need to pass in wechatId");
         }
+        ServerResponse existResponse = this.checkExists(wechatId);
         // student info doesn't exist in db
         if(!existResponse.isSuccess()){
             return existResponse;

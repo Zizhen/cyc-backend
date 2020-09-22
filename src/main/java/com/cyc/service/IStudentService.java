@@ -4,6 +4,9 @@ import com.cyc.common.ServerResponse;
 import com.cyc.pojo.Student;
 
 public interface IStudentService {
+
+    ServerResponse<Student> getStudentInfo(String wechatId);
+
     ServerResponse<String> setStudentInfo(Student record);
 
     ServerResponse<String> updateStudentInfo(Student record);
