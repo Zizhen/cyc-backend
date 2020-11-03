@@ -260,4 +260,5 @@
   <select id="checkExists" parameterType="string" resultType="int">
     select count(1) from student where wechat_id = #{wechatId}
   </select>
+  <select id="selectMostRecent" resultMap="BaseResultMap">select * from student</select>
 </mapper>

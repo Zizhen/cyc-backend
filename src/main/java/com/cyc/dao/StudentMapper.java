@@ -15,5 +15,7 @@ public interface StudentMapper {
 
     int updateByPrimaryKey(Student record);
 
+    Student[] selectMostRecent();
+
     int checkExists(String wechatId);
 }

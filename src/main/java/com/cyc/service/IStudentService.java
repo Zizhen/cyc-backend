@@ -7,6 +7,8 @@ public interface IStudentService {
 
     ServerResponse<Student> getStudentInfo(String wechatId);
 
+    ServerResponse<Student[]> getRecentStudentInfo();
+
     ServerResponse<String> setStudentInfo(Student record);
 
     ServerResponse<String> updateStudentInfo(Student record);

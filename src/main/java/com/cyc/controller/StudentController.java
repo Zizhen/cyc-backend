@@ -26,6 +26,12 @@ public class StudentController {
         return new ResponseEntity<ServerResponse>(iStudentService.getStudentInfo(wechatId), new HttpHeader().headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value="getRecent.do",method= RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<ServerResponse> getRecentStudentInfo(){
+        return new ResponseEntity<ServerResponse>(iStudentService.getRecentStudentInfo(), new HttpHeader().headers, HttpStatus.OK);
+    }
+
     @RequestMapping(value="set.do",method= RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<ServerResponse> setStudentInfo(Student record){

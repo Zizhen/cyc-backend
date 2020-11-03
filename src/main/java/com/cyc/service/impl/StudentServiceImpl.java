@@ -13,6 +13,11 @@ public class StudentServiceImpl implements IStudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    public ServerResponse<Student[]> getRecentStudentInfo(){
+        Student[] entry = studentMapper.selectMostRecent();
+        return ServerResponse.createBySuccess("student info found", entry);
+    }
+
     public ServerResponse<Student> getStudentInfo(String wechatId){
         if (StringUtils.isBlank(wechatId)){
             return ServerResponse.createByErrorMessage("Need to pass in wechatId");
